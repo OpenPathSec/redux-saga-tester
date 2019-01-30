@@ -7,7 +7,7 @@ const UPDATE_STATE_TYPE = '@@UPDATE_TESTER_STATE';
 
 export const resetAction = { type : RESET_TESTER_ACTION_TYPE };
 
-export default class SagaIntegrationTester {
+export default class SagaIntegratifonTester {
     constructor({
         initialState = {},
         reducers,
@@ -108,8 +108,8 @@ export default class SagaIntegrationTester {
 
     start(sagas = [], ...args) {
         const task = this.sagaMiddleware.run(sagas, ...args);
-        task.done.then(() => this._verifyAwaitedActionsCalled());
-        task.done.catch(e => this._handleRootSagaException(e));
+        task.toPromise().then(() => this._verifyAwaitedActionsCalled());
+        task.toPromise().catch(e => this._handleRootSagaException(e));
         return task;
     }
 
